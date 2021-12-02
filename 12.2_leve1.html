@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    div{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        position: relative;
+    }
+</style>
+<body>
+    <div id="no1" style="background-color: red;"></div>
+    <div id="no2" style="background-color: blueviolet;"></div>
+    <div id="no3" style="background-color: yellowgreen;"></div>
+</body>
+<script>
+    //1.setTimeout嵌套
+    // let no1 = document.getElementById('no1');
+    // let no2 = document.getElementById('no2');
+    // let no3 = document.getElementById('no3');
+    // let timepoint = setInterval(() => {
+    //     if(no1.offsetLeft>300)
+    //         {
+    //             clearInterval(timepoint);
+    //             let timepoint2 = setInterval(() => {
+    //             if(no2.offsetLeft>300)
+    //                 {
+    //                     clearInterval(timepoint2);
+    //                     let timepoint3 = setInterval(()=>{
+    //                         if(no3.offsetLeft>300){
+    //                             clearInterval(timepoint3);
+    //                         }
+    //                         else{
+    //                             no3.style.left = no3.offsetLeft+10+'px';
+    //                         }
+    //                     },200)
+    //                 }
+    //             else
+    //                 no2.style.left=no2.offsetLeft+10+'px';
+                
+    //          }, 200);
+    //         }
+    //     else
+    //         no1.style.left=no1.offsetLeft+10+'px';
+
+    // }, 200);
+
+    //2.promise的then链式调用
+    // let no1 = document.getElementById('no1');
+    // let no2 = document.getElementById('no2');
+    // let no3 = document.getElementById('no3');
+    // let spped = 10;
+    // new Promise(resolve=>{
+    //     setTimeout(()=>{
+    //         no1.style.left = no1.offsetLeft + 80 + 'px';
+    //         resolve();
+    //     },800)
+    // }).then(()=>{
+    //     return new Promise(resolve=>{
+    //         setTimeout(()=>{
+    //             no2.style.left = no2.offsetLeft + 80 + 'px';
+    //             resolve();
+    //         },800)
+    //     })
+    // }).then(()=>{
+    //     setTimeout(()=>{
+    //         no3.style.left = no3.offsetLeft + 80 + 'px';
+    //     },800)
+    // })
+
+    //3.await链式调用
+    let no1 = document.getElementById('no1');
+    let no2 = document.getElementById('no2');
+    let no3 = document.getElementById('no3');
+    function fn(time,obj){
+        return new Promise((resolve)=>{
+            setTimeout(()=>{
+                obj.style.left = obj.offsetLeft + 80 + 'px';
+                resolve();
+            },time)
+        })
+    }
+    async function timePoint(){
+        await fn(1000,no1);
+        await fn(1000,no2);
+        await fn(1000,no3);
+    }
+    timePoint();
+</script>
+</html>
